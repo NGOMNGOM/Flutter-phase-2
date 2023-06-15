@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "Flutter with Database",
       home: const MyHomePage(),
-      theme: ThemeData(primarySwatch: Colors.indigo),
+      theme: ThemeData(primarySwatch: Colors.brown),
     );
   }
 }
@@ -32,7 +32,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
         appBar: AppBar(title: const Text("Flutter with database"), actions: [
           IconButton(
-              icon: Icon(Icons.add),
+              icon: Icon(Icons.access_alarm),
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (BuildContext context) {
@@ -40,8 +40,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 }));
               })
         ]),
-        body: Container(
-          child: Text("test"),
-        ));
+        body: Container(child: Text("test")));
   }
 }
