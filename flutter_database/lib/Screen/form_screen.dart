@@ -16,21 +16,21 @@ class FormScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFormField(
-                decoration: new InputDecoration(labelText: "First Input"),
+                decoration: const InputDecoration(labelText: "First Input"),
                 autofocus: true,
               ),
               TextFormField(
                   keyboardType: TextInputType.number,
-                  decoration: new InputDecoration(labelText: "Second Input")),
+                  decoration: const InputDecoration(labelText: "Second Input")),
               TextButton(
-                  child: const Text("Submit"),
                   style: TextButton.styleFrom(
                       foregroundColor: Colors.blue,
                       elevation: 5,
                       backgroundColor: Colors.amber),
                   onPressed: () {
                     Navigator.pop(context);
-                  })
+                  },
+                  child: const Text("Submit"))
             ],
           ),
         )));

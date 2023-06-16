@@ -40,6 +40,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 }));
               })
         ]),
-        body: Container(child: Text("test")));
+        body: ListView.builder(
+            itemCount: 5,
+            itemBuilder: (BuildContext context, int index) {
+              return Card(
+                margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                elevation: 10,
+                child: ListTile(
+                    leading: CircleAvatar(
+                        radius: 30, child: FittedBox(child: Text("20000"))),
+                    title: Text("Title"),
+                    subtitle: Text("Date")),
+              );
+            }));
   }
 }
