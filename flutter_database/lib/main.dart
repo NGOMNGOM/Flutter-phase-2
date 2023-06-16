@@ -44,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
             itemCount: 5,
             itemBuilder: (BuildContext context, int index) {
               return Card(
-                margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                 elevation: 10,
                 child: ListTile(
                     leading: CircleAvatar(
