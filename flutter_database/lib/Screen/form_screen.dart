@@ -4,6 +4,10 @@ class FormScreen extends StatelessWidget {
   FormScreen({super.key});
   final formKey = GlobalKey<FormState>();
 
+  // controller
+  final titleController = TextEditingController();
+  final amountController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,6 +22,7 @@ class FormScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextFormField(
+                    controller: titleController,
                     decoration: const InputDecoration(labelText: "First Input"),
                     autofocus: true,
                     validator: (String? input) {
@@ -28,6 +33,7 @@ class FormScreen extends StatelessWidget {
                     },
                   ),
                   TextFormField(
+                      controller: amountController,
                       keyboardType: TextInputType.number,
                       decoration:
                           const InputDecoration(labelText: "Second Input"),
@@ -46,6 +52,9 @@ class FormScreen extends StatelessWidget {
                           backgroundColor: Colors.amber),
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
+                          var title = titleController.text;
+                          var amount = amountController.text;
+                          print(title + amount);
                           Navigator.pop(context);
                         }
                       },
