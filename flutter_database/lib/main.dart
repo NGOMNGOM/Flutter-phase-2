@@ -3,6 +3,8 @@ import 'package:flutter_database/Provider/transactionProvider.dart';
 import 'Screen/form_screen.dart';
 import 'package:provider/provider.dart';
 
+import 'models/Transaction.dart';
+
 void main() {
   var app = MyApp();
   runApp(app);
@@ -51,18 +53,24 @@ class _MyHomePageState extends State<MyHomePage> {
                 }));
               })
         ]),
-        body: ListView.builder(
-            itemCount: 5,
-            itemBuilder: (BuildContext context, int index) {
-              return Card(
-                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                elevation: 10,
-                child: ListTile(
-                    leading: CircleAvatar(
-                        radius: 30, child: FittedBox(child: Text("20000"))),
-                    title: Text("Title"),
-                    subtitle: Text("Date")),
-              );
-            }));
+        body: Consumer(
+            builder: (context, TransactionProvider provider, Widget? child) {
+          return ListView.builder(
+              itemCount: provider.transactions.length,
+              itemBuilder: (BuildContext context, int index) {
+                Transaction data = provider.transactions[index];
+                return Card(
+                  margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  elevation: 10,
+                  child: ListTile(
+                      leading: CircleAvatar(
+                          radius: 30,
+                          child:
+                              FittedBox(child: Text(data.amount.toString()))),
+                      title: Text(data.title),
+                      subtitle: Text(data.date.toString())),
+                );
+              });
+        }));
   }
 }
