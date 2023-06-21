@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_database/Provider/transactionProvider.dart';
 import 'Screen/form_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   var app = MyApp();
@@ -11,10 +13,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Flutter with Database",
-      home: const MyHomePage(),
-      theme: ThemeData(primarySwatch: Colors.brown),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) {
+            return TransactionProvider();
+          },
+        )
+      ],
+      child: MaterialApp(
+        title: "Flutter with Database",
+        home: const MyHomePage(),
+        theme: ThemeData(primarySwatch: Colors.brown),
+      ),
     );
   }
 }
