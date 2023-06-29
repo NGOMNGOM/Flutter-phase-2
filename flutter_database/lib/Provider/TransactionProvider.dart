@@ -7,18 +7,14 @@ import '/models/Transaction.dart';
 
 class TransactionProvider extends ChangeNotifier {
   // example data
-  List<Transaction> transactions = [
-    Transaction(title: "Book", amount: 500, date: DateTime.now()),
-    Transaction(title: "Cloth", amount: 600, date: DateTime.now()),
-    Transaction(title: "Pants", amount: 400, date: DateTime.now())
-  ];
+  List<Transaction> transactions = [];
 
   List<Transaction> getTransaction() {
     return transactions;
   }
 
   void addTransaaction(Transaction statement) {
-    transactions.add(statement);
+    transactions.insert(0, statement);
     notifyListeners();
   }
 }

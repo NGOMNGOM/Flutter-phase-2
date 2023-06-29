@@ -65,8 +65,7 @@ class FormScreen extends StatelessWidget {
 
                       provider.addTransaaction(statement);
 
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Home()));
+                      Navigator.pop(context);
                     }
                   },
                   style: TextButton.styleFrom(

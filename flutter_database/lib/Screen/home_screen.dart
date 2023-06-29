@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_database/Provider/TransactionProvider.dart';
 import 'package:flutter_database/Screen/form_screen.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
@@ -23,6 +24,11 @@ class Home extends StatelessWidget {
         ),
         body: Consumer(
             builder: (context, TransactionProvider provider, Widget? child) {
+          if (provider.transactions.isEmpty) {
+            return Center(
+              child: Text("No information", style: TextStyle(fontSize: 20)),
+            );
+          }
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: ListView.builder(
@@ -37,7 +43,8 @@ class Home extends StatelessWidget {
                         ),
                       ),
                       title: Text(statement.title),
-                      subtitle: Text(statement.date.toString()),
+                      subtitle:
+                          Text(DateFormat("dd/MM/yyyy").format(statement.date)),
                     ),
                   );
                 }),
