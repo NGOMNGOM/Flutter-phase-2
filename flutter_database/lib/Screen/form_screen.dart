@@ -1,66 +1,86 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_database/Provider/TransactionProvider.dart';
+import 'package:flutter_database/models/Transaction.dart';
+import 'package:provider/provider.dart';
+
+import 'home_screen.dart';
 
 class FormScreen extends StatelessWidget {
   FormScreen({super.key});
   final formKey = GlobalKey<FormState>();
-
-  // controller
   final titleController = TextEditingController();
   final amountController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
+    // var title = Te
+
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Second Page"),
+          title: Text("Form"),
         ),
-        body: Form(
+        body: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Form(
             key: formKey,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TextFormField(
-                    controller: titleController,
-                    decoration: const InputDecoration(labelText: "First Input"),
-                    autofocus: true,
-                    validator: (String? input) {
-                      if (input!.isEmpty) {
-                        return "Please input";
-                      }
-                      return null;
-                    },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextFormField(
+                  decoration: const InputDecoration(labelText: "TITLE"),
+                  controller: titleController,
+                  autofocus: true,
+                  validator: (String? input) {
+                    if (input!.isEmpty) {
+                      return "Please Input";
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(labelText: "AMOUNT"),
+                  controller: amountController,
+                  keyboardType: TextInputType.number,
+                  validator: (String? input) {
+                    if (input!.isEmpty) {
+                      return "Please input";
+                    } else if (double.parse(input) <= 0) {
+                      return "Please input more than 0";
+                    }
+                    return null;
+                  },
+                ),
+                TextButton(
+                  onPressed: () {
+                    var provider = Provider.of<TransactionProvider>(context,
+                        listen: false);
+
+                    if (formKey.currentState!.validate()) {
+                      var title = titleController.text;
+                      var amount = amountController.text;
+
+                      var statement = Transaction(
+                          title: title,
+                          amount: double.parse(amount),
+                          date: DateTime.now());
+
+                      provider.addTransaaction(statement);
+
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Home()));
+                    }
+                  },
+                  style: TextButton.styleFrom(
+                    elevation: 5,
+                    backgroundColor: Colors.indigo,
                   ),
-                  TextFormField(
-                      controller: amountController,
-                      keyboardType: TextInputType.number,
-                      decoration:
-                          const InputDecoration(labelText: "Second Input"),
-                      validator: (String? input) {
-                        if (input!.isEmpty) {
-                          return "Please input";
-                        } else if (double.parse(input) <= 0) {
-                          return "Please input positive value";
-                        }
-                        return null;
-                      }),
-                  TextButton(
-                      style: TextButton.styleFrom(
-                          foregroundColor: Colors.blue,
-                          elevation: 5,
-                          backgroundColor: Colors.amber),
-                      onPressed: () {
-                        if (formKey.currentState!.validate()) {
-                          var title = titleController.text;
-                          var amount = amountController.text;
-                          print(title + amount);
-                          Navigator.pop(context);
-                        }
-                      },
-                      child: const Text("Submit"))
-                ],
-              ),
-            )));
+                  child: const Text(
+                    "submit",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ));
   }
 }
