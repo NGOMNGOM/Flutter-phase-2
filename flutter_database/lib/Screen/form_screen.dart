@@ -63,7 +63,7 @@ class FormScreen extends StatelessWidget {
                           amount: double.parse(amount),
                           date: DateTime.now());
 
-                      provider.addTransaaction(statement);
+                      provider.addTransaction(statement);
 
                       Navigator.pop(context);
                     }

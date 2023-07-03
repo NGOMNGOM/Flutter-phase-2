@@ -3,17 +3,20 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/foundation.dart';
+import '../database/transaction_db.dart';
 import '/models/Transaction.dart';
 
 class TransactionProvider extends ChangeNotifier {
   // example data
-  List<Transaction> transactions = [];
+  List<Transactions> transactions = [];
 
-  List<Transaction> getTransaction() {
+  List<Transactions> getTransaction() {
     return transactions;
   }
 
-  void addTransaaction(Transaction statement) {
+  void addTransaction(Transactions statement) async {
+    var db = TransactionDB(dbName: "transactions.db");
+    await db.insertData(statement);
     transactions.insert(0, statement);
     notifyListeners();
   }
