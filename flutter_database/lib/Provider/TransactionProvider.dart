@@ -16,8 +16,12 @@ class TransactionProvider extends ChangeNotifier {
 
   void addTransaction(Transactions statement) async {
     var db = TransactionDB(dbName: "transactions.db");
+    // บันทึกข้อมูล
     await db.insertData(statement);
+
+    // ดึงข้อมูลมาแสดงผล
     transactions.insert(0, statement);
+    transactions = await db.loadAllData();
     notifyListeners();
   }
 }

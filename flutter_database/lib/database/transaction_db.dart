@@ -20,25 +20,47 @@ class TransactionDB {
   Future<Database> openDB() async // ใช้ async เพราะเราต้องรอให้เปิด DB
   {
     var appDirectory = await getApplicationDocumentsDirectory();
-    var dbLocation = join(appDirectory.toString(), dbName);
 
+    var dbLocation = join(appDirectory.path, dbName);
+
+    // print(dbLocation);
     // สร้าง database
-    DatabaseFactory dbFactory = databaseFactoryIo;
+    DatabaseFactory dbFactory = await databaseFactoryIo;
     Database db = await dbFactory.openDatabase(dbLocation);
     return db;
   }
 
   // บันทึกข้อมูลลง DB => Store
   // transaction.db [Database] => expense [Table]
-  insertData(Transactions statement) async {
-    var db = await this.openDB();
+  Future<int> insertData(Transactions statement) async {
+    var db = await openDB();
     var store = intMapStoreFactory.store("expense");
 
     // json
-    store.add(db, {
+    var keyID = store.add(db, {
       "title": statement.title,
       "amount": statement.amount,
-      "date": statement.date,
+      "date": statement.date.toIso8601String(),
     });
+    db.close();
+    return keyID;
+  }
+
+  Future<List<Transactions>> loadAllData() async {
+    var db = await openDB();
+    var store = intMapStoreFactory.store("expense");
+    var snapshot = await store.find(db);
+
+    // ดึงจาก snapshot มาใส่ใน list
+    List<Transactions> transactionList = [];
+    for (var record in snapshot) {
+      transactionList.add(Transactions(
+          title: (record["title"]).toString(),
+          amount: double.parse((record["amount"]).toString()),
+          date: DateTime.parse(record["date"].toString())));
+    }
+
+    // print(snapshot);
+    return transactionList;
   }
 }
