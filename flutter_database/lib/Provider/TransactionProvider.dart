@@ -8,7 +8,15 @@ import '/models/Transaction.dart';
 
 class TransactionProvider extends ChangeNotifier {
   // example data
+
   List<Transactions> transactions = [];
+
+  void initData() async // สำหรับการดึงข้อมูลจาก db (ถ้ามี)
+  {
+    var db = TransactionDB(dbName: "transactions.db");
+    transactions = await db.loadAllData();
+    notifyListeners();
+  }
 
   List<Transactions> getTransaction() {
     return transactions;

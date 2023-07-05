@@ -4,12 +4,23 @@ import 'package:flutter_database/Screen/form_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
 
   @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Provider.of<TransactionProvider>(context, listen: false).initData();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // var provider = Provider.of<TransactionProvider>(context, listen: false);
     return Scaffold(
         appBar: AppBar(
           title: Text("Home"),
@@ -50,5 +61,6 @@ class Home extends StatelessWidget {
                 }),
           );
         }));
+    ;
   }
 }
