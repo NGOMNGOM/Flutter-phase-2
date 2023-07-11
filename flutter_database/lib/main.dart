@@ -18,13 +18,28 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => TransactionProvider())
       ],
       child: MaterialApp(
-          home: DefaultTabController(
-              length: 2,
-              child: Scaffold(
-                body: TabBarView(
-                  children: [Home(), FormScreen()],
-                ),
-              ))),
+        home: DefaultTabController(
+            length: 2,
+            child: Scaffold(
+              backgroundColor: Colors.indigo,
+              body: TabBarView(
+                children: [Home(), FormScreen()],
+              ),
+              bottomNavigationBar: const TabBar(
+                tabs: [
+                  Tab(
+                    icon: Icon(Icons.list),
+                    text: "Screen1",
+                  ),
+                  Tab(
+                    icon: Icon(Icons.add),
+                    text: "Screen2",
+                  )
+                ],
+              ),
+            )),
+        theme: ThemeData(primarySwatch: Colors.indigo),
+      ),
     );
   }
 }

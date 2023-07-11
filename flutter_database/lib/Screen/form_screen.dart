@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_database/Provider/TransactionProvider.dart';
+import 'package:flutter_database/main.dart';
 import 'package:flutter_database/models/Transaction.dart';
 import 'package:provider/provider.dart';
 
@@ -28,7 +29,7 @@ class FormScreen extends StatelessWidget {
                 TextFormField(
                   decoration: const InputDecoration(labelText: "TITLE"),
                   controller: titleController,
-                  autofocus: true,
+                  autofocus: false,
                   validator: (String? input) {
                     if (input!.isEmpty) {
                       return "Please Input";
@@ -65,7 +66,11 @@ class FormScreen extends StatelessWidget {
 
                       provider.addTransaction(statement);
 
-                      Navigator.pop(context);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              fullscreenDialog: true,
+                              builder: (context) => MyApp()));
                     }
                   },
                   style: TextButton.styleFrom(
