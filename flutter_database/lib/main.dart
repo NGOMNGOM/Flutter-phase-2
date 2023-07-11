@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_database/Provider/TransactionProvider.dart';
+import 'package:flutter_database/Screen/form_screen.dart';
 import 'package:flutter_database/Screen/home_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -17,8 +18,13 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => TransactionProvider())
       ],
       child: MaterialApp(
-        home: Home(),
-      ),
+          home: DefaultTabController(
+              length: 2,
+              child: Scaffold(
+                body: TabBarView(
+                  children: [Home(), FormScreen()],
+                ),
+              ))),
     );
   }
 }
