@@ -49,7 +49,8 @@ class TransactionDB {
   Future<List<Transactions>> loadAllData() async {
     var db = await openDB();
     var store = intMapStoreFactory.store("expense");
-    var snapshot = await store.find(db);
+    var snapshot = await store.find(db,
+        finder: Finder(sortOrders: [SortOrder(Field.key, false)]));
 
     // ดึงจาก snapshot มาใส่ใน list
     List<Transactions> transactionList = [];

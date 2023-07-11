@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_database/Provider/TransactionProvider.dart';
 import 'package:flutter_database/Screen/form_screen.dart';
 import 'package:intl/intl.dart';
@@ -27,10 +28,9 @@ class _HomeState extends State<Home> {
           actions: [
             IconButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => FormScreen()));
+                  SystemNavigator.pop();
                 },
-                icon: const Icon(Icons.ac_unit))
+                icon: const Icon(Icons.exit_to_app))
           ],
         ),
         body: Consumer(
